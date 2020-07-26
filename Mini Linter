@@ -1,0 +1,146 @@
+let story = 'Last weekend, I took literally the most beautiful bike ride of my life. The route is called "The 9W to Nyack" and it actually stretches all the way from Riverside Park in Manhattan to South Nyack, New Jersey. It\'s really an adventure from beginning to end! It is a 48 mile loop and it basically took me an entire day. I stopped at Riverbank State Park to take some extremely artsy photos. It was a short stop, though, because I had a really long way left to go. After a quick photo op at the very popular Little Red Lighthouse, I began my trek across the George Washington Bridge into New Jersey.  The GW is actually very long - 4,760 feet! I was already very tired by the time I got to the other side.  An hour later, I reached Greenbrook Nature Sanctuary, an extremely beautiful park along the coast of the Hudson.  Something that was very surprising to me was that near the end of the route you actually cross back into New York! At this point, you are very close to the end.';
+
+let unnecessaryWords = ['extremely', 'literally', 'actually' ];
+
+let overusedWords = ['really', 'very', 'basically'];
+
+//.split(' '): devides a string into words level and returns an array.
+//.split(''): devides a string into letters level.
+//.split(): a string into strings level but returns array.
+const storyWords = story.split(' ')
+console.log('The word count: ' + storyWords.length);
+//console.log(storyWords);
+
+const betterWords = storyWords.filter(word => !unnecessaryWords.includes(word));
+
+let really = 0;
+let very = 0;
+let basically = 0;
+for(word of storyWords){
+  if(word === overusedWords[1]){
+    really += 1;
+  }else if(word === overusedWords[2]){
+    very += 1;
+  }else if(word === overusedWords[3]){
+    basically += 1;
+  }
+}
+
+
+let sentences = 0;
+const countSentences = betterWords.forEach(word => {
+  if(word[word.length - 1] === '!' || word[word.length - 1] === '.'){
+    sentences += 1;
+  }
+  return sentences;
+})
+console.log('The sentence count: ' + sentences);
+
+
+console.log('The number of times each overused word appears');
+console.log('really: ' + really);
+console.log('very: ' + very);
+console.log('basically: ' + basically);
+
+console.log();
+//console.log(betterWords.join(' '));
+
+//8-1 remove overused words every other time.
+const removeOverused = (storyArray, overusedWords) => {
+  let countReally = 0;
+  let countVery = 0;
+  let countBasically = 0;   
+
+  for(let i = 0; i < storyArray.length; i++){
+    if(storyArray[i] === overusedWords[0]){
+        countReally += 1;
+        if(countReally % 2 === 0){
+        storyArray.splice(i, 1);
+        }
+      }else if(storyArray[i] === overusedWords[1]){
+        countVery += 1;
+        if(countVery % 2 === 0){
+        storyArray.splice(i, 1);
+        }
+      }else if(storyArray[i] === overusedWords[2]){
+        countBasically += 1;
+        if(countBasically % 2 === 0){
+        storyArray.splice(i, 1);
+      }
+    } 
+    }
+  return storyArray;
+}
+removeOverused(betterWords, overusedWords);
+
+
+//to check 8-1 is working.
+let really1 = 0;
+let very1 = 0;
+let basically1 = 0;
+for(word of betterWords){
+  if(word === 'really'){
+    really1 += 1;
+  }else if(word === 'very'){
+    very1 += 1;
+  }else if(word === 'basically'){
+    basically1 += 1;
+  }
+}
+console.log('really: ' + really1);
+console.log('very: ' + very1);
+console.log('basically: ' + basically1);
+//console.log(betterWords);
+
+
+const mostUsedWord = (storyArray) => {
+  let counts = {};
+  let compare = 0;
+  let mostUsed;
+  for(let i = 0; i < storyArray.length; i++){
+    const word = storyArray[i].toLowerCase();
+    if(counts[word] === undefined){
+      counts[word] = 1; 
+    }else{
+      counts[word] += 1;
+    }
+    if(counts[word] > compare){
+      compare = counts[word];
+      mostUsed = storyArray[i];
+    }
+  }
+  return mostUsed;
+  }
+console.log('The most used word is: ' + mostUsedWord(betterWords));
+
+
+const replaceOverused = (storyArray, removeArray) => {
+   let replaceWords = ['truly', 'strongly', 'essentially'];  
+  for(let i = 0; i < storyArray.length; i++){
+    switch(storyArray[i]){
+      case removeArray[0]:
+        storyArray.splice(i, 1, replaceWords[0]);
+        break;
+      case removeArray[1]:
+        storyArray.splice(i, 1, replaceWords[1]);
+        break;
+      case removeArray[2]:
+        storyArray.splice(i, 1, replaceWords[2]);
+        break;
+  }
+
+/*
+  if(storyArray[i] === removeArray[0]){
+      storyArray.splice(i, 1, replaceWords[0]);
+      }else if(storyArray[i] === removeArray[1]){
+        storyArray.splice(i, 1, replaceWords[1]);
+      }else if(storyArray[i] === removeArray[2]){
+        storyArray.splice(i, 1, replaceWords[2]);
+    }
+    */
+}
+  return storyArray;
+}
+replaceOverused(betterWords, overusedWords);
+console.log(betterWords.join(' '));
+
