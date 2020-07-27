@@ -1,0 +1,83 @@
+const team = {
+  _players: [
+    {
+      firstName: 'Pablo',
+      lastName: 'Sanchez',
+      age: 21
+    },
+    {
+      firstName: 'Ryan',
+      lastName: 'Gosling',
+      age: 39
+    },
+    {
+      firstName: 'Zac',
+      lastName: 'Efron',
+      age: 32
+    }
+  ],
+  _games: [
+    {
+      opponent: 'Broncos',
+      teamPoints: 42,
+      opponentPoints: 27
+    },
+    {
+      opponent: 'Japan',
+      teamPoints: 30,
+      opponentPoints: 21
+    },
+    {
+      opponent: 'Korea',
+      teamPoints: 50,
+      opponentPoints: 51
+    }
+  ],
+
+  get players(){
+    return this._players;
+  },
+  get games(){
+    return this._games;
+  },
+
+  addPlayer(firstName, lastName, age){
+    let player = {
+      firstName: firstName,
+      lastName: lastName,
+      age: age
+    };
+    this.players.push(player);
+  },
+
+  addGame(opponentName, yourPoints, opponentPoints){
+    let game = {
+      opponentName: opponentName,
+      yourPoints: yourPoints,
+      opponentPoints: opponentPoints
+    };
+    this.games.push(game);
+  }
+};
+
+team.addPlayer('Steph', 'Curry', 28);
+team.addPlayer('Lisa', 'Leslie', 44);
+team.addPlayer('Bugs', 'Bunny', 76);
+
+console.log(team.players);
+
+team.addGame('USA', 80, 10);
+team.addGame('Mexico', 50, 50);
+
+console.log(team.games);
+
+
+
+
+
+
+
+
+
+
+
