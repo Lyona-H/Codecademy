@@ -1,0 +1,107 @@
+class School{
+  constructor(name, level, num){
+    this._name = name;
+    this._level = level;
+    this._numberOfStudents = num;
+  }
+
+  get name(){
+    return this._name;
+  }  
+  get level(){
+    return this._level;
+  }
+  get numberOfStudents(){
+    return this._numberOfStudents;
+  }
+
+  set numberOfStudents(num){
+    if(typeOf(num) === 'number'){
+      this._numberOfStudents = num;
+    }else{
+      console.log('Invalid input: numberOfStudents must be set to a Number.')
+    }
+   }
+
+  quickFacts(){
+    console.log(`${this.name} educates ${this.numberOfStudents} students at the ${this.level} school level.`)
+  }
+
+  static pickSubstituteTeacher(substituteTeachers){
+    let index = Math.floor(Math.random() * substituteTeachers.length);
+    console.log(substituteTeachers[index]);
+  }
+}
+
+
+class Primary extends School{
+  constructor(name, num, policy){
+    super(name, 'primary', num);
+    this._pickupPolicy = policy;
+  }
+
+  get pickupPolicy(){
+    return this._pickupPolicy;
+  }
+}
+
+class Middle extends School{
+  constructor(name, numberOfStudents){
+    super(name, 'middle', numberOfStudents);
+  }
+}
+
+class High extends School{
+  constructor(name, numberOfStudents, sportsTeams){
+    super(name, 'high', numberOfStudents);
+    this._sportsTeams = sportsTeams;
+    this._averageTestScores; //extra credit
+  }
+
+  get sportsTeams (){
+    return this._sportsTeams;
+  }
+  get averageTestScores(){
+    return this._averageTestScores;
+  }
+
+//extra credit
+  getAverageTestScores(scores){
+    let sum = 0
+    //for(let i = 0; i < scores.length; i++)
+    for(let i in scores){
+      sum += scores[i];
+    }
+    const average = sum / scores.length;
+    return console.log(average);
+  }
+}
+
+
+const lorraineHansbury = new Primary('Lorraine Hansbury', 514, 'Students must be picked up by a parent, guardian, or a family member over the age of 13.')
+lorraineHansbury.quickFacts();
+const sub = School.pickSubstituteTeacher(['Jamal Crawford', 'Lou Williams', 'J. R. Smith', 'James Harden', 'Jason Terry', 'Manu Ginobli']);
+
+
+const alSmith = new High('Al E. Smith', 415, ['Baseball', 'Basketball', 'Volleyball', 'Track and Field']);
+alSmith.quickFacts();
+console.log(alSmith.sportsTeams);
+alSmith.getAverageTestScores([10, 90, 80, 50]);
+
+
+//extra credit
+class SchoolCatalog{
+  constructor(){
+    this._schools = [];
+  }
+  get schools(){
+    return this._schools;
+  }
+  set schools(school){
+    this._schools.push(school);
+  }
+}
+
+const schools = new SchoolCatalog
+schools.schools = alSmith;
+console.log(schools)
